@@ -3,6 +3,9 @@ Developing iOS Apps Demo with Swift
 
 This is a demo of the swift teaching program at Stanford University.
 
+The notes are mainly recorded and translated according to Lecture Slides and course content
+
+
 Learning with video at [iTunes](https://podcasts.apple.com/cn/podcast/developing-ios-11-apps-with-swift/id1315130780).
 
 
