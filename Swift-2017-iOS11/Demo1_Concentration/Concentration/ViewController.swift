@@ -41,15 +41,28 @@ class ViewController: UIViewController
                 button.backgroundColor = .white
             } else {
                 button.setTitle("", for: .normal)
-                button.backgroundColor = card.isMetched ? .clear : .systemOrange
+                button.backgroundColor = card.isMatched ? .clear : .systemOrange
             }
         }
     }
     
-    var emojiChoices = ["👻","🎃","👻","🎃"]
+    var emojiChoices = ["👻","👽","💀","🎃","👹","🤡","🦇","🐙","🦎"]
+    
+    var emoji = [Int:String]()
     
     func emoji(for card: Card) -> String {
-        return "?"
+//        if emoji[card.identifier] != nil {
+//            return emoji[card.identifier]!
+//        } else {
+//            return "?"
+//        }
+        
+        if emoji[card.identifier] == nil, emojiChoices.count > 0 {
+            let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
+            emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
+        }
+        
+        return emoji[card.identifier] ?? "?"
     }
     
     /// lecture1: 卡片翻转
