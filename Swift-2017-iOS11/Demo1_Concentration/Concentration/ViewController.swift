@@ -9,14 +9,22 @@ import UIKit
 
 class ViewController: UIViewController
 {
-    lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
+    private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
-    var flipCount: Int = 0 { didSet { flipCountLabel.text = "Flips: \(flipCount)" } }
+    // lecture 3 计算属性, 将game中的定义单独拿出来了
+    // 这里使用return，已经表示了只读属性
+    var numberOfPairsOfCards: Int {
+        // 如果只有返回，可以不用get{}
+        return (cardButtons.count + 1) / 2
+    }
+    
+    // lecture 3 由于需要给UI传值，这里使用private(set)
+    private(set) var flipCount: Int = 0 { didSet { flipCountLabel.text = "Flips: \(flipCount)" } }
 
-    @IBOutlet weak var flipCountLabel: UILabel!
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private weak var flipCountLabel: UILabel!
+    @IBOutlet private var cardButtons: [UIButton]!
     
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
 //        print("agh! a ghost!")
         flipCount += 1
 //        flipCard(withEmoji: "👻", on: sender)
@@ -32,7 +40,7 @@ class ViewController: UIViewController
     }
     
     /// 从模型内容更新UI
-    func updateViewFromModel()  {
+    private func updateViewFromModel()  {
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -46,11 +54,11 @@ class ViewController: UIViewController
         }
     }
     
-    var emojiChoices = ["👻","👽","💀","🎃","👹","🤡","🦇","🐙","🦎"]
+    private var emojiChoices = ["👻","👽","💀","🎃","👹","🤡","🦇","🐙","🦎"]
     
-    var emoji = [Int:String]()
+    private var emoji = [Int:String]()
     
-    func emoji(for card: Card) -> String {
+    private func emoji(for card: Card) -> String {
 //        if emoji[card.identifier] != nil {
 //            return emoji[card.identifier]!
 //        } else {
@@ -58,8 +66,10 @@ class ViewController: UIViewController
 //        }
         
         if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
-            emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
+//            let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
+//            emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
+            // lecture 3 使用扩展生成随机数
+            emoji[card.identifier] = emojiChoices.remove(at: emojiChoices.count.arc4random)
         }
         
         return emoji[card.identifier] ?? "?"
@@ -71,7 +81,7 @@ class ViewController: UIViewController
     ///   - emoji: 内部参数
     ///   - on: external parameter
     ///   - button: internal parameter
-    func flipCard(withEmoji emoji: String, on button: UIButton) {
+    private func flipCard(withEmoji emoji: String, on button: UIButton) {
         if button.currentTitle == emoji {
             button.setTitle("", for: .normal)
             button.backgroundColor = _ColorLiteralType.systemOrange
@@ -82,3 +92,15 @@ class ViewController: UIViewController
     }
 }
 
+// lecture 3 扩展
+extension Int {
+    var arc4random: Int {
+        if self > 0 {
+            return Int(arc4random_uniform(UInt32(self)))
+        } else if self < 0 {
+            return -Int(arc4random_uniform(UInt32(abs(self))))
+        } else {
+            return 0
+        }
+    }
+}
