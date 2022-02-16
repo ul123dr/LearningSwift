@@ -1,0 +1,56 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform:ios,'8.0'
+
+# swift调用ObjC库
+use_frameworks!
+
+## ignore pod files warning
+inhibit_all_warnings!
+
+target '岭南生活' do
+
+# AutoLayout
+pod 'SnapKit'
+
+# 网络请求
+pod 'Alamofire'
+
+# 图片缓存
+pod 'Kingfisher'
+
+# 键盘管理
+pod 'IQKeyboardManager'
+
+# 社会化组件，可以不适用sdk分享内容
+pod 'MonkeyKing'
+
+# 钥匙串存储
+pod 'KeychainAccess'
+
+# HUD
+pod 'MBProgressHUD'
+pod 'SVProgressHUD'
+
+# 刷新
+pod 'MJRefresh'
+
+
+# 二维码，条形码
+#pod 'LBXScan/LBXNative'
+#pod 'LBXScan/LBXZXing'
+#pod 'LBXScan/LBXZBar'
+#pod 'LBXScan/UI'
+
+
+#pod 'JZLocationConverter'
+#pod 'Reachability'
+#pod 'WebViewJavascriptBridge'
+#pod 'ZLPhotoBrowser'
+#pod 'HBDNavigationBar'
+
+
+#YYKit组件库
+#pod 'YYKit'
+
+
+end
