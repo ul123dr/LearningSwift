@@ -38,7 +38,7 @@ struct Concentration
     
     // at: external name 参数标签
     // index: internal name 参数名称
-    // lecture 4 struct函数不能直接调用self，需要加mutating修饰（Cannot assign to property: 'self' is immutable）
+    // lecture 4 struct函数不能直接调用self，需要加mutating修饰（无修饰cards报错：Cannot assign to property: 'self' is immutable）
     mutating func chooceCard(at index: Int) {
         /*
         // lecture 1 简单翻牌
